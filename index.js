@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const formidableMiddleware = require("express-formidable");
@@ -106,10 +107,14 @@ app.post("/signin", async (req, res) => {
   }
 });
 
+app.post("/update", async (req, res) => {
+  console.log(req.fields);
+});
+
 app.all("*", (req, res) => {
   res.status(400).json({ message: "Page demandée introuvable" });
 });
 
-app.listen(3001, () => {
+app.listen(process.env.PORT, () => {
   console.log("Serveur en état de marche");
 });
