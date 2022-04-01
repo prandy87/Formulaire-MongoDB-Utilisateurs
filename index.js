@@ -45,6 +45,7 @@ app.post("/signup", async (req, res) => {
               birthday: req.fields.birthday,
               address: req.fields.address,
               zipcode: req.fields.zipcode,
+              city: req.fields.city,
               comment: req.fields.comment,
             },
             token: token,
