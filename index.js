@@ -80,7 +80,7 @@ app.post("/signin", async (req, res) => {
   console.log(req.fields);
 
   if (req.fields.password && req.fields.email) {
-    const findUser = await User.findOne({ email: req.fields.email });
+    let findUser = await User.findOne({ email: req.fields.email });
     if (!findUser) {
       res.status(400).json("Email invalide");
     } else {
@@ -108,23 +108,55 @@ app.post("/signin", async (req, res) => {
   }
 });
 
-app.get("/update", (req, res) => {
-  console.log("toto");
-  res.json({ message: "toto" });
-  // try {
-  //   const updateUser = await User.findByIdAndUpdate(req.fields._id, {
-  //     lastName: req.fields.lastName,
-  //   });
-  //   await updateUser.save();
+app.post("/update", async (req, res) => {
+  // console.log(req.fields);
 
-  //   if (updateUser) {
-  //     res.status(200).json({ message: "user updated", user: updateUser });
-  //   } else {
-  //     res.status(404).json({ message: "user not found" });
-  //   }
-  // } catch (error) {
-  //   res.status(400).json({ error: error.message });
-  // }
+  console.log("route update AOK");
+  let updateUserById = await User.findById(req.fields._id);
+  if (!updateUserById) {
+    res.status(400).json({ message: "user to update not found by its ID." });
+  }
+  try {
+    if (req.fields._id && req.fields.lastName) {
+      updateUserById.account.lastName = req.fields.lastName;
+      await updateUserById.save();
+      res
+        .status(200)
+        .json({ message: `user ${updateUserById} succesfully updated.` });
+    } else if (req.fields._id && req.fields.firstName) {
+      updateUserById.account.firstName = req.fields.firstName;
+      await updateUserById.save();
+      res
+        .status(200)
+        .json({ message: `user ${updateUserById} succesfully updated.` });
+    } else if (req.fields._id && req.fields.address) {
+      updateUserById.account.address = req.fields.address;
+      await updateUserById.save();
+      res.status(200).json({
+        message: `user ${updateUserById.account.address} succesfully updated.`,
+      });
+    } else if (req.fields._id && req.fields.zipcode) {
+      updateUserById.account.zipcode = req.fields.zipcode;
+      await updateUserById.save();
+      res.status(200).json({
+        message: `user ${updateUserById.account.zipcode} succesfully updated.`,
+      });
+    } else if (req.fields._id && req.fields.city) {
+      updateUserById.account.city = req.fields.city;
+      await updateUserById.save();
+      res.status(200).json({
+        message: `user ${updateUserById.account.city} succesfully updated.`,
+      });
+    } else if (req.fields._id && req.fields.comment) {
+      updateUserById.account.comment = req.fields.comment;
+      await updateUserById.save();
+      res.status(200).json({
+        message: `user ${updateUserById.account.comment} succesfully updated.`,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 app.all("*", (req, res) => {
