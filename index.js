@@ -110,7 +110,7 @@ app.post("/signin", async (req, res) => {
 
 app.post("/update", async (req, res) => {
   console.log("toto");
-  res.json("toto");
+  res.json({ message: "toto" });
   // try {
   //   const updateUser = await User.findByIdAndUpdate(req.fields._id, {
   //     lastName: req.fields.lastName,
