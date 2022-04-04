@@ -111,20 +111,8 @@ app.post("/signin", async (req, res) => {
 app.post("/update", async (req, res) => {
   console.log("toto");
   try {
-    const updateUser = await User.findByIdAndUpdate(
-      req.fields._id,
-      {
-        gender: req.fields.gender,
-        lastName: req.fields.lastName,
-        firstName: req.fields.firstName,
-        birthday: req.fields.birthday,
-        address: req.fields.address,
-        city: req.fields.city,
-        zipcode: req.fields.zipcode,
-        comment: req.fields.comment,
-      },
-      { new: true }
-    );
+    const updateUser = await User.findByIdAndUpdate(req.fields._id, req.fields);
+    await updateUser.save();
 
     if (updateUser) {
       res.status(200).json({ message: "user updated", user: updateUser });
