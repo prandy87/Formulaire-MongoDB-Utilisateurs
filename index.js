@@ -110,20 +110,20 @@ app.post("/signin", async (req, res) => {
 
 app.post("/update", async (req, res) => {
   console.log("toto");
-  try {
-    const updateUser = await User.findByIdAndUpdate(req.fields._id, {
-      lastName: req.fields.lastName,
-    });
-    await updateUser.save();
+  // try {
+  //   const updateUser = await User.findByIdAndUpdate(req.fields._id, {
+  //     lastName: req.fields.lastName,
+  //   });
+  //   await updateUser.save();
 
-    if (updateUser) {
-      res.status(200).json({ message: "user updated", user: updateUser });
-    } else {
-      res.status(404).json({ message: "user not found" });
-    }
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  //   if (updateUser) {
+  //     res.status(200).json({ message: "user updated", user: updateUser });
+  //   } else {
+  //     res.status(404).json({ message: "user not found" });
+  //   }
+  // } catch (error) {
+  //   res.status(400).json({ error: error.message });
+  // }
 });
 
 app.all("*", (req, res) => {
