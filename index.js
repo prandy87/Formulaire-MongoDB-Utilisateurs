@@ -108,7 +108,7 @@ app.post("/signin", async (req, res) => {
   }
 });
 
-app.post("/update", async (req, res) => {
+app.get("/update", async (req, res) => {
   console.log("toto");
   res.json({ message: "toto" });
   // try {
