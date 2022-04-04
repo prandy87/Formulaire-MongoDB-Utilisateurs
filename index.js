@@ -110,6 +110,30 @@ app.post("/signin", async (req, res) => {
 
 app.post("/update", async (req, res) => {
   console.log(req.fields);
+  try {
+    const updateUser = await User.findByIdAndUpdate(
+      req.fields._id,
+      {
+        gender: req.fields.gender,
+        lastName: req.fields.lastName,
+        firstName: req.fields.firstName,
+        birthday: req.fields.birthday,
+        address: req.fields.address,
+        city: req.fields.city,
+        zipcode: req.fields.zipcode,
+        comment: req.fields.comment,
+      },
+      { new: true }
+    );
+
+    if (updateUser) {
+      res.status(200).json({ message: "user updated", user: updateUser });
+    } else {
+      res.status(404).json({ message: "user not found" });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 app.all("*", (req, res) => {
