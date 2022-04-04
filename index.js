@@ -109,8 +109,6 @@ app.post("/signin", async (req, res) => {
 });
 
 app.post("/update", async (req, res) => {
-  // console.log(req.fields);
-
   console.log("route update AOK");
   let updateUserById = await User.findById(req.fields._id);
   if (!updateUserById) {
